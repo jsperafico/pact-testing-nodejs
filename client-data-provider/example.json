@@ -1,0 +1,16 @@
+{
+    "id": 1,
+    "name": "Colette T. Sanchez",
+    "dob": "28/12/1990",
+    "contact": {
+        "email": "ut.pharetra.sed@Nunc.net",
+        "phone": "(915) 502-7826"
+    },
+    "address": {
+        "line1": "P.O. Box 769",
+        "line2": "6270 Dui Av.",
+        "zipcode": 2773,
+        "city": "Sambreville",
+        "country": "Poland"
+    }
+}

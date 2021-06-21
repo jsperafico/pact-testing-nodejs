@@ -1,0 +1,21 @@
+{
+    "client": {
+        "id": 1,
+        "name": "Colette T. Sanchez",
+        "email": "ut.pharetra.sed@Nunc.net",
+        "address": {
+            "line1": "P.O. Box 769",
+            "line2": "6270 Dui Av.",
+            "zipcode": 2773,
+            "city": "Sambreville",
+            "country": "Poland"
+        }
+    },
+    "items": [
+        {
+            "id": 1,
+            "label": "Chocolate bar",
+            "price": 10
+        }
+    ]
+}

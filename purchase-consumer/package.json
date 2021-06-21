@@ -1,0 +1,14 @@
+{
+  "name": "purchase-consumer",
+  "version": "1.0.0",
+  "description": "This will be considered an isolated api module for PACT purposes",
+  "config": {
+    "pact_do_not_track": true
+  },
+  "main": "app.js",
+  "scripts": {
+    "dev": "npm run development"
+  },
+  "author": "Jonathan Pinto Sperafico",
+  "license": "GNU"
+}
