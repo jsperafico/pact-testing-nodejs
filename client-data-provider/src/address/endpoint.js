@@ -1,4 +1,5 @@
 const data = require('../data');
+const Address = require('./model');
 
 class AddressEndpoint {
     constructor(app) {
@@ -8,9 +9,14 @@ class AddressEndpoint {
 
     setup() {
         this.app.get(`/api/v${this.version}/clients/:name/address`, (req, res) => {
-            res.json(data.find(entry => entry.name.toLocaleLowerCase().includes(
+            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
                 req.params.name.toLocaleLowerCase()
-            )).address)
+            ))?.address;
+            if (element === undefined) {
+                res.status(404).send('Client not found');
+            } else {
+                res.json(new Address(element));
+            }
         });
         this.app.put(`/api/v${this.version}/clients/:name/address`, (req, res) => {
             console.log('Don\'t know how to send a post yet');

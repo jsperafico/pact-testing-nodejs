@@ -1,4 +1,5 @@
 const data = require('../data');
+const Contact = require('./model');
 
 class ContactEndpoint {
     constructor(app) {
@@ -8,9 +9,14 @@ class ContactEndpoint {
 
     setup() {
         this.app.get(`/api/v${this.version}/clients/:name/contact`, (req, res) => {
-            res.json(data.find(entry => entry.name.toLocaleLowerCase().includes(
+            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
                 req.params.name.toLocaleLowerCase()
-            )).contact)
+            ))?.contact;
+            if (element === undefined) {
+                res.status(404).send('Client not found');
+            } else {
+                res.json(new Contact(element));
+            }
         });
         this.app.put(`/api/v${this.version}/clients/:name/contact`, (req, res) => {
             console.log('Don\'t know how to send a post yet');
