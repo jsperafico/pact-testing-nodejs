@@ -1,10 +1,20 @@
 version: "3"
 services:
+    client-data:
+        image: node:14-alpine
+        container_name: client-data
+        working_dir: /usr/app
+        command: /bin/sh -c "npm install && npm run start"
+        ports:
+            - 3000:3000
+        volumes: 
+            - ./client-data-provider:/usr/app
+            - /usr/app/node_modules
     pact-broker:
         image: pactfoundation/pact-broker
         container_name: pact-broker
         ports:
-            - "9292:9292"
+            - 9292:9292
         depends_on:
             - pact-postgres
         environment:
