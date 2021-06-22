@@ -5,7 +5,6 @@ const express = require('express');
 const app = new express();
 
 app.use('/api', [authorized, express.json()]);
-// app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.send('<h1> Home Page </h1>');

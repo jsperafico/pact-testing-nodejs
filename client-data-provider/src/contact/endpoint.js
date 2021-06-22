@@ -1,6 +1,6 @@
 const data = require('../data');
 const loadash = require('loadsh');
-const { findClient, version } = require('../common');
+const { findClient } = require('../common');
 
 const express = require('express');
 const router = express.Router();
