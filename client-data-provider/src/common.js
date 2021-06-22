@@ -4,4 +4,6 @@ findClient = function(data, req) {
     ));
 }
 
-module.exports = findClient;
+const version = require('../package.json').version;
+
+module.exports = {findClient, version};

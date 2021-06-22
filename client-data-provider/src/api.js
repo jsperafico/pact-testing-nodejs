@@ -11,21 +11,16 @@ app.get('/', (req, res) => {
     res.send('<h1> Home Page </h1>');
 });
 
-const ClientEndpoint = require('./client/endpoint');
-const clientEndpoint = new ClientEndpoint(app);
-clientEndpoint.setup();
+const { version } = require('./common');
 
-const AddressEndpoint = require('./address/endpoint');
-const addressEndpoint = new AddressEndpoint(app);
-addressEndpoint.setup();
+app.use(`/api/v${version}/clients`, 
+        require('./client/endpoint'), 
+        require('./address/endpoint'), 
+        require('./contact/endpoint'));
 
-const ContactEndpoint = require('./contact/endpoint');
-const contactEndpoint = new ContactEndpoint(app);
-contactEndpoint.setup();
-
-const ClientProvider = require('./client/provider');
-const clientProvider = new ClientProvider(app);
-clientProvider.setup();
+const minion = require('md5')('minion');
+app.use(`/api/v${minion}/clients/`, 
+        require('./client/provider'));
 
 app.get('*', (req, res) => {
     res.send('<h1>Not found</h1>');
