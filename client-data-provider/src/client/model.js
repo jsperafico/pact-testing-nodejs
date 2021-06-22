@@ -1,5 +1,5 @@
 export class Client {
-    constructor({id, name, dob, contact: Contact, address: Address}) {
+    constructor({id, name, dob, contact, address}) {
         this.id = id;
         this.name = name;
         this.dob = dob;
