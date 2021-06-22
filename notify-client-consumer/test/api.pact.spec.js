@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const { Pact, Matchers } = require("@pact-foundation/pact");
+const version = require('md5')('minion');
 
 const Client = {
     model: require("../src/client/model"),
@@ -29,7 +30,7 @@ describe('API - Client Contract Testing', () => {
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: '/client-data/edina',
+                    path: `/api/v${version}/clients/edina/data`,
                     headers: {
                         Authorization: Matchers.like('Bearer Some_valid_Token')
                     },
@@ -65,7 +66,7 @@ describe('API - Client Contract Testing', () => {
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: '/client-data/hello',
+                    path: `/api/v${version}/clients/hello/data`,
                     headers: {
                         Authorization: Matchers.like('Bearer Some_valid_Token')
                     },
@@ -87,7 +88,7 @@ describe('API - Client Contract Testing', () => {
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: Matchers.like('/client-data/hello'),
+                    path: Matchers.like(`/api/v${version}/clients/hello/data`),
                     headers: {
                         Authorization: 'Bearer Some_Invalid_Token'
                     },

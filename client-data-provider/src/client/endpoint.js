@@ -1,4 +1,4 @@
-const data = require('../data');
+let data = require('../data');
 const Client = require('./model');
 
 class ClientEndpoint {
@@ -22,7 +22,15 @@ class ClientEndpoint {
             }
         });
         this.app.post(`/api/v${this.version}/clients`, (req, res) => {
-            console.log('Don\'t know how to send a post yet');
+            if (req.body === undefined) {
+                return res.status(400).send('Please provide an entry to be inserted.');
+
+            }
+            if (data.find(entry => entry.name.toLocaleLowerCase() == req.body.name.toLocaleLowerCase())) {
+                return res.status(409).send('Client already exists.');
+            }
+            data.push(req.body);
+            res.status(201).send('client information added.');
         });
     }
 }

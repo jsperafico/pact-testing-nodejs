@@ -4,7 +4,8 @@ const authorized = require('./middleware');
 const express = require('express');
 const app = new express();
 
-app.use('/api', authorized);
+app.use('/api', [authorized, express.json()]);
+// app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.send('<h1> Home Page </h1>');
@@ -21,6 +22,10 @@ addressEndpoint.setup();
 const ContactEndpoint = require('./contact/endpoint');
 const contactEndpoint = new ContactEndpoint(app);
 contactEndpoint.setup();
+
+const ClientProvider = require('./client/provider');
+const clientProvider = new ClientProvider(app);
+clientProvider.setup();
 
 app.get('*', (req, res) => {
     res.send('<h1>Not found</h1>');
