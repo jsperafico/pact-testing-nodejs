@@ -11,7 +11,7 @@
       "providerState": "a client with name 'edina' exists",
       "request": {
         "method": "GET",
-        "path": "/client-data/edina",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/edina/data",
         "headers": {
           "Authorization": "Bearer Some_valid_Token"
         },
@@ -47,7 +47,7 @@
       "providerState": "a client with name 'hello' dosn't exists",
       "request": {
         "method": "GET",
-        "path": "/client-data/hello",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
           "Authorization": "Bearer Some_valid_Token"
         },
@@ -68,7 +68,7 @@
       "providerState": "Authorization token is invalid",
       "request": {
         "method": "GET",
-        "path": "/client-data/hello",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
           "Authorization": "Bearer Some_Invalid_Token"
         },
