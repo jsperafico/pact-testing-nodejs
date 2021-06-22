@@ -1,6 +1,7 @@
 const data = require('../data');
 const Contact = require('./model');
 const loadash = require('loadsh');
+const findClient = require('../common');
 
 class ContactEndpoint {
     constructor(app) {
@@ -10,9 +11,7 @@ class ContactEndpoint {
 
     setup() {
         this.app.get(`/api/v${this.version}/clients/:name/contact`, (req, res) => {
-            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
-                req.params.name.toLocaleLowerCase()
-            ))?.contact;
+            let element = findClient(data, req)?.contact;
             if (element === undefined) {
                 res.status(404).send('Client not found');
             } else {
@@ -23,7 +22,7 @@ class ContactEndpoint {
             if (req.body === undefined) {
                 return res.status(400).send('Please provide an entry to be inserted.');
             }
-            let element = data.find(entry => entry.name.toLocaleLowerCase() == req.params.name.toLocaleLowerCase());
+            let element = findClient(data, req);
             if (element === undefined) {
                 return res.status(404).send('Name not found.');
             }

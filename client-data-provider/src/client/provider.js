@@ -1,4 +1,5 @@
 let data = require('../data');
+const findClient = require('../common');
 
 class ClientProvider {
     constructor(app) {
@@ -8,9 +9,7 @@ class ClientProvider {
 
     setup() {
         this.app.get(`/api/v${this.version}/clients/:name/data`, (req, res) => {
-            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
-                req.params.name.toLocaleLowerCase()
-            ));
+            let element = findClient(data, req);
             
             res.status(200).json(element);
         });

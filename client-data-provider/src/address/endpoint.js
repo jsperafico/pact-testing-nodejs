@@ -1,6 +1,7 @@
 const data = require('../data');
 const Address = require('./model');
 const loadash = require('loadsh');
+const findClient = require('../common');
 
 class AddressEndpoint {
     constructor(app) {
@@ -10,9 +11,7 @@ class AddressEndpoint {
 
     setup() {
         this.app.get(`/api/v${this.version}/clients/:name/address`, (req, res) => {
-            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
-                req.params.name.toLocaleLowerCase()
-            ))?.address;
+            let element = findClient(data, req)?.address;
             if (element === undefined) {
                 res.status(404).send('Client not found');
             } else {
@@ -23,7 +22,7 @@ class AddressEndpoint {
             if (req.body === undefined) {
                 return res.status(400).send('Please provide an entry to be inserted.');
             }
-            let element = data.find(entry => entry.name.toLocaleLowerCase() == req.params.name.toLocaleLowerCase());
+            let element = findClient(data, req);
             if (element === undefined) {
                 return res.status(404).send('Name not found.');
             }

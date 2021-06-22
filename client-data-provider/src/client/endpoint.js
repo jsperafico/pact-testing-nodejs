@@ -1,5 +1,6 @@
 let data = require('../data');
 const Client = require('./model');
+const findClient = require('../common');
 
 class ClientEndpoint {
     constructor(app) {
@@ -12,9 +13,7 @@ class ClientEndpoint {
             res.json(data.map(entry => new Client(entry)));
         });
         this.app.get(`/api/v${this.version}/clients/:name`, (req, res) => {
-            let element = data.find(entry => entry.name.toLocaleLowerCase().includes(
-                req.params.name.toLocaleLowerCase()
-            ));
+            let element = findClient(data, req);
             if (element === undefined) {
                 res.status(404).send('Client not found');
             } else {
