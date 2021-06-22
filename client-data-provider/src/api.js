@@ -1,9 +1,13 @@
 const PORT = 3000;
 
-const express = require('express')
+const authorized = require('./middleware');
+const express = require('express');
 const app = new express();
+
+app.use('/api', authorized);
+
 app.get('/', (req, res) => {
-    res.send('<h1> Home Page </h1>')
+    res.send('<h1> Home Page </h1>');
 });
 
 const ClientEndpoint = require('./client/endpoint');
@@ -21,6 +25,7 @@ contactEndpoint.setup();
 app.get('*', (req, res) => {
     res.send('<h1>Not found</h1>');
 });
+
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
 });
