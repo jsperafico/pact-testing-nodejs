@@ -24,7 +24,6 @@ class ClientEndpoint {
         this.app.post(`/api/v${this.version}/clients`, (req, res) => {
             if (req.body === undefined) {
                 return res.status(400).send('Please provide an entry to be inserted.');
-
             }
             if (data.find(entry => entry.name.toLocaleLowerCase() == req.body.name.toLocaleLowerCase())) {
                 return res.status(409).send('Client already exists.');
