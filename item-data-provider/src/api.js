@@ -14,6 +14,6 @@ app.get('*', (req, res) => {
     res.send('<h1>Not found</h1>');
 });
 
-app.list(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
 });

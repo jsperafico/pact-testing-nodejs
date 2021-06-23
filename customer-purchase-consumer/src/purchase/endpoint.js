@@ -17,14 +17,18 @@ router.post(`/`, (req, res) => {
     }
     const client = clients.getClientData(req.body.client.name);
     if (client === undefined || !loadash.isEqual(client.id, req.body.client.id)) {
-        return res.status(409).send('Please verify content of your request.');
+        return res.status(409).send('Client undefined or different id.');
     }
+    let matched = 0;
     for (let index = 0; index < req.body.items.length; index++) {
         const element = array[index];
         const item = items.getItemData(element.id);
         if (item === undefined || !loadash.isEqual(item.label, element.label)) {
-            return res.status(409).send('Please verify content of your request.');
+            matched++;
         }
+    }
+    if (matched == req.body.items.length - 1) {
+        return res.status(409).send('Please verify content of your request.');
     }
     data.push(req.body);
     res.status(201).send('Entry added.');

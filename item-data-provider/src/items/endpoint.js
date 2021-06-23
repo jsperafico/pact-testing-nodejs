@@ -39,7 +39,7 @@ route.patch('/:id', (req, res) => {
     element.description = req.body.description;
     element.price = req.body.price;
     element.image = req.body.image;
-    res.status(201).send('client information added.');
+    res.status(201).send('Item information updated.');
 });
 
 route.delete('/:id', (req, res) => {

@@ -44,7 +44,7 @@ services:
             - /usr/app/node_modules
         environment: 
             - CLIENT_DATA="client-data:3000"
-            - ITEM_DATA="item-data:3000"
+            - ITEM_DATA="item-data:3001"
     pact-broker:
         image: pactfoundation/pact-broker
         container_name: pact-broker
