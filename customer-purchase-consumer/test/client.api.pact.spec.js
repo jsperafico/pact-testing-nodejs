@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { Pact, Matchers } = require('@pact-foundation/pact');
-const version = require('md5')('Darth Vader');
+const version = require('md5')('minion');
 
 const Consumers = {
     client: require('../src/clients/consumer')
@@ -74,7 +74,7 @@ describe('API - Client Contract Testing', () => {
 
         it('Client not found', async () => {
             await mockClientProvider.addInteraction({
-                state: 'a client isn\' found using unexistent name',
+                state: 'a client isn\'t found using unexistent name',
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',

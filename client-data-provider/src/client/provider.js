@@ -12,9 +12,11 @@ router.get(`/:name/data`, (req, res) => {
     }
     
     res.status(200).json({
+        id: element.id,
         name: element.name,
         email: element.contact.email,
-        phone: element.contact.phone
+        phone: element.contact.phone,
+        address: element.address
     });
 });
 

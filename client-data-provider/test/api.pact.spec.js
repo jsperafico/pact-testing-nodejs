@@ -12,7 +12,7 @@ const server = app.listen(`${PORT}`);
 const { load, clear, data } = require('../src/data');
 
 describe('API - Contract Testing', () => {
-    it(`validates the expectations for version '${minion}' of consumers`, () => {
+    it(`validates the expectations for versions of consumers`, () => {
         let token = "Bearer INVALID TOKEN";
         let opts = {
             provider: "app-client-data",
@@ -34,6 +34,22 @@ describe('API - Contract Testing', () => {
                         contact: {
                             email: "some@email.org",
                             phone: "99595"
+                        },
+                        address: {
+                            line1: "493-6750 Vitae, Rd.",
+                            line2: "",
+                            zipcode: 202358,
+                            city: "Constitución",
+                            country: "Sint Maarten"
+                        }
+                    });
+                    data.push({
+                        id: 20,
+                        name: "Golden Retriever",
+                        dob: "20/02/2012",
+                        contact: {
+                            email: "maybe@email.org",
+                            phone: "445441"
                         },
                         address: {
                             line1: "493-6750 Vitae, Rd.",

@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const version = require('md5')('Darth Vader');
+const version = require('md5')('minion');
 
 const HEADERS = {
     Authorization: 'Bearer absduabiudyaiuysag23131'

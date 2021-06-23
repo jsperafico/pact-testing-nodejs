@@ -11,14 +11,14 @@
       "providerState": "a client is found using existent name",
       "request": {
         "method": "GET",
-        "path": "/api/v580275e7b4ed12f4a7f60d8fd88add34/clients/Golden/data",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/Golden/data",
         "headers": {
           "authorization": "Bearer Some_valid_Token"
         },
         "matchingRules": {
           "$.path": {
             "match": "regex",
-            "regex": "\\/api\\/v580275e7b4ed12f4a7f60d8fd88add34\\/clients\\/[%20\\w\\. ]+\\/data"
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\. ]+\\/data"
           },
           "$.headers.authorization": {
             "match": "type"
@@ -55,17 +55,17 @@
     },
     {
       "description": "a request to get a client",
-      "providerState": "a client isn' found using unexistent name",
+      "providerState": "a client isn't found using unexistent name",
       "request": {
         "method": "GET",
-        "path": "/api/v580275e7b4ed12f4a7f60d8fd88add34/clients/hello/data",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
           "authorization": "Bearer Some_valid_Token"
         },
         "matchingRules": {
           "$.path": {
             "match": "regex",
-            "regex": "\\/api\\/v580275e7b4ed12f4a7f60d8fd88add34\\/clients\\/[%20\\w\\.\\, ]+\\/data"
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\.\\, ]+\\/data"
           },
           "$.headers.authorization": {
             "match": "type"
@@ -83,14 +83,14 @@
       "providerState": "Authorization token is invalid",
       "request": {
         "method": "GET",
-        "path": "/api/v580275e7b4ed12f4a7f60d8fd88add34/clients/hello/data",
+        "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
           "authorization": "Bearer Some_Invalid_Token"
         },
         "matchingRules": {
           "$.path": {
             "match": "regex",
-            "regex": "\\/api\\/v580275e7b4ed12f4a7f60d8fd88add34\\/clients\\/[%20\\w\\. ]+\\/data"
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\. ]+\\/data"
           }
         }
       },
