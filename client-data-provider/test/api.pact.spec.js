@@ -9,78 +9,57 @@ app.use(`/api/v${minion}/clients/`,
 
 const PORT = 8080;
 const server = app.listen(`${PORT}`);
-let data = require('../src/data');
+const { load, clear, data } = require('../src/data');
 
 describe('API - Contract Testing', () => {
     it(`validates the expectations for version '${minion}' of consumers`, () => {
-        const baseOpts = {
+        let token = "Bearer INVALID TOKEN";
+        let opts = {
+            provider: "app-client-data",
             logLevel: "INFO",
             providerBaseUrl: `http://localhost:${PORT}`,
-            providerVersion: process.env.TRAVIS_COMMIT ? process.env.TRAVIS_COMMIT : minion,
-            providerVersionTags: process.env.TRAVIS_BRANCH ? [process.env.TRAVIS_BRANCH] : [],
-            verbose: process.env.VERBOSE === 'true'
-        };
-
-        const pactChangedOpts = {
-            pactUrls: [process.env.PACT_URL]
-        }
-
-        const fetchPactsDynamicallyOpts = {
-            provider: "app-client-data",
-            // consumerVersionSelectors: [{ tag: 'master', latest: true }, { tag: 'prod', latest: true }],
-            pactBrokerUrl: process.env.PACT_BROKER_BASE_URL ? process.env.PACT_BROKER_BASE_URL : "http://localhost:9292",
-            enablePending: false,
-            includeWipPactsSince: undefined
-        }
-
-        const stateHandlers = {
-            "client exists": () => {
-                data = new Map([
-                    ["edina", {
-                        "name": "Medina, Jena",
-                        "email": "maybe@some.com",
-                        "phone": "1000"
-                    }]
-                ]);
+            requestFilter: (req, res, next) => {
+                req.headers["authorization"] = `${token}`;
+                next();
             },
-
-            "client don't exists": () => {
-                data = new Map();
-            }
-            // "products exists": () => {
-            //     controller.repository.products = new Map([
-            //         ["10", new Product("10", "CREDIT_CARD", "28 Degrees", "v1")]
-            //     ]);
-            // },
-            // "products exist": () => {
-            //     controller.repository.products = new Map([
-            //         ["10", new Product("10", "CREDIT_CARD", "28 Degrees", "v1")]
-            //     ]);
-            // },
-            // "a product with ID 10 exists": () => {
-            //     controller.repository.products = new Map([
-            //         ["10", new Product("10", "CREDIT_CARD", "28 Degrees", "v1")]
-            //     ]);
-            // },
-            // "a product with ID 11 does not exist": () => {
-            //     controller.repository.products = new Map();
-            // }
-        }
-
-        // const requestFilter = (req, res, next) => {
-        //     if (!req.headers["authorization"]) {
-        //         next();
-        //         return;
-        //     }
-        //     req.headers["authorization"] = `Bearer ${new Date().toISOString()}`;
-        //     next();
-        // };
-
-        const opts = {
-            ...baseOpts,
-            ...(process.env.PACT_URL ? pactChangedOpts : fetchPactsDynamicallyOpts),
-            stateHandlers: stateHandlers,
-            // requestFilter: requestFilter
+            stateHandlers: {
+                "a client is found using existent name": () => {
+                    token = "Bearer shouldWork";
+                    clear();
+                    load();
+                    data.push({
+                        id: 5,
+                        name: "Medina, Jena M.",
+                        dob: "12/12/2012",
+                        contact: {
+                            email: "some@email.org",
+                            phone: "99595"
+                        },
+                        address: {
+                            line1: "493-6750 Vitae, Rd.",
+                            line2: "",
+                            zipcode: 202358,
+                            city: "Constitución",
+                            country: "Sint Maarten"
+                        }
+                    });
+                },
+                "a client isn't found using unexistent name": () => {
+                    token = "Bearer shouldWork";
+                    clear();
+                },
+                "Authorization token is invalid": () => {
+                    clear();
+                    load();
+                    token = "shouldn't Work";
+                }
+            },
+            pactBrokerUrl: "http://localhost:9292",
+            providerVersion: minion,
+            consumerVersionTag: [],
+            providerVersionTag: [],
+            enablePending: true,
+            publishVerificationResult: true,
         };
 
         return new Verifier(opts).verifyProvider()

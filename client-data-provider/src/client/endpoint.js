@@ -1,4 +1,4 @@
-let data = require('../data');
+let { data } = require('../data');
 const { findClient } = require('../common');
 
 const express = require('express');

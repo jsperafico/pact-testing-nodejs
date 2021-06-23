@@ -8,15 +8,19 @@
   "interactions": [
     {
       "description": "a request to get a client",
-      "providerState": "a client with name 'edina' exists",
+      "providerState": "a client is found using existent name",
       "request": {
         "method": "GET",
         "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/edina/data",
         "headers": {
-          "Authorization": "Bearer Some_valid_Token"
+          "authorization": "Bearer Some_valid_Token"
         },
         "matchingRules": {
-          "$.headers.Authorization": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\. ]+\\/data"
+          },
+          "$.headers.authorization": {
             "match": "type"
           }
         }
@@ -24,7 +28,7 @@
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json; charset=utf-8"
+          "content-type": "application/json; charset=utf-8"
         },
         "body": {
           "name": "Jena M. Medina",
@@ -32,7 +36,7 @@
           "phone": "(914) 842-4818"
         },
         "matchingRules": {
-          "$.headers.Content-Type": {
+          "$.headers.content-type": {
             "match": "regex",
             "regex": "application\\/json;?.*"
           },
@@ -44,15 +48,19 @@
     },
     {
       "description": "a request to get a client",
-      "providerState": "a client with name 'hello' dosn't exists",
+      "providerState": "a client isn't found using unexistent name",
       "request": {
         "method": "GET",
         "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
-          "Authorization": "Bearer Some_valid_Token"
+          "authorization": "Bearer Some_valid_Token"
         },
         "matchingRules": {
-          "$.headers.Authorization": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\. ]+\\/data"
+          },
+          "$.headers.authorization": {
             "match": "type"
           }
         }
@@ -70,11 +78,12 @@
         "method": "GET",
         "path": "/api/v17dc79754f51ea9d12388d6478e9a222/clients/hello/data",
         "headers": {
-          "Authorization": "Bearer Some_Invalid_Token"
+          "authorization": "Bearer Some_Invalid_Token"
         },
         "matchingRules": {
           "$.path": {
-            "match": "type"
+            "match": "regex",
+            "regex": "\\/api\\/v17dc79754f51ea9d12388d6478e9a222\\/clients\\/[%20\\w\\. ]+\\/data"
           }
         }
       },

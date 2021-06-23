@@ -26,19 +26,19 @@ describe('API - Client Contract Testing', () => {
             };
 
             await mockProvider.addInteraction({
-                state: 'a client with name \'edina\' exists',
+                state: 'a client is found using existent name',
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: `/api/v${version}/clients/edina/data`,
+                    path: Matchers.term({generate: `/api/v${version}/clients/edina/data`, matcher: `/api/v${version}/clients/[%20\\w\\. ]+/data`}) ,
                     headers: {
-                        Authorization: Matchers.like('Bearer Some_valid_Token')
+                        authorization: Matchers.like('Bearer Some_valid_Token')
                     },
                 },
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': Matchers.regex({
+                        'content-type': Matchers.regex({
                             generate: 'application/json; charset=utf-8',
                             matcher: 'application/json;?.*'
                         }),
@@ -62,13 +62,13 @@ describe('API - Client Contract Testing', () => {
 
         it('Client not found', async () => {
             await mockProvider.addInteraction({
-                state: 'a client with name \'hello\' dosn\'t exists',
+                state: 'a client isn\'t found using unexistent name',
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: `/api/v${version}/clients/hello/data`,
+                    path: Matchers.term({generate: `/api/v${version}/clients/hello/data`, matcher: `/api/v${version}/clients/[%20\\w\\. ]+/data`}),
                     headers: {
-                        Authorization: Matchers.like('Bearer Some_valid_Token')
+                        authorization: Matchers.like('Bearer Some_valid_Token')
                     },
                 },
                 willRespondWith: {
@@ -88,9 +88,9 @@ describe('API - Client Contract Testing', () => {
                 uponReceiving: 'a request to get a client',
                 withRequest: {
                     method: 'GET',
-                    path: Matchers.like(`/api/v${version}/clients/hello/data`),
+                    path: Matchers.term({generate: `/api/v${version}/clients/hello/data`, matcher: `/api/v${version}/clients/[%20\\w\\. ]+/data`}) ,
                     headers: {
-                        Authorization: 'Bearer Some_Invalid_Token'
+                        authorization: 'Bearer Some_Invalid_Token'
                     },
                 },
                 willRespondWith: {
@@ -102,7 +102,7 @@ describe('API - Client Contract Testing', () => {
             let response = await api.getClientData(
                 'nathan',
                 {
-                    Authorization: 'Bearer Some_Invalid_Token'
+                    authorization: 'Bearer Some_Invalid_Token'
                 }
             );
             expect(response).has.a.property('status').which.is.a('number').and.equal(401);
