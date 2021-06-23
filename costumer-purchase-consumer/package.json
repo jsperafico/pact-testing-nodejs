@@ -1,6 +1,6 @@
 {
-  "name": "client-data-provider",
-  "version": "0.1.1",
+  "name": "costumer-purchase-consumer",
+  "version": "0.0.1",
   "description": "This will be considered an isolated api module for PACT purposes",
   "config": {
     "pact_do_not_track": true

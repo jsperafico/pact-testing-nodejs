@@ -1,0 +1,20 @@
+const axios = require('axios').default;
+const version = require('md5')('Darth Vader');
+
+const HEADERS = {
+    Authorization: 'Bearer absduabiudyaiuysag23131'
+}
+
+class ClientConsumer {
+    constructor(baseUrl) {
+        axios.defaults.baseURL = baseUrl;
+    }
+
+    async getClientData(value, headers = HEADERS) {
+        return axios.get(`/api/v${version}/clients/${value}/data`, {
+            headers: headers
+        }).catch((error) => { return error.response; });
+    }
+}
+
+module.exports = ClientConsumer;

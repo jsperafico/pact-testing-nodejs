@@ -10,6 +10,41 @@ services:
         volumes: 
             - ./client-data-provider:/usr/app
             - /usr/app/node_modules
+    item-data:
+        image: node:14-alpine
+        container_name: item-data
+        working_dir: /usr/app
+        command: /bin/sh -c "npm install && npm run start"
+        ports:
+            - 3001:3000
+        volumes: 
+            - ./item-data-provider:/usr/app
+            - /usr/app/node_modules
+    notify-client:
+        image: node:14-alpine
+        container_name: notify-client
+        working_dir: /usr/app
+        command: /bin/sh -c "npm install && npm run start"
+        ports:
+            - 3002:3000
+        volumes: 
+            - ./notify-client-consumer:/usr/app
+            - /usr/app/node_modules
+        environment: 
+            - CLIENT_DATA="client-data:3000"
+    costumer-purchase:
+        image: node:14-alpine
+        container_name: costumer-purchase
+        working_dir: /usr/app
+        command: /bin/sh -c "npm install && npm run start"
+        ports:
+            - 3003:3000
+        volumes: 
+            - ./costumer-purchase-consumer:/usr/app
+            - /usr/app/node_modules
+        environment: 
+            - CLIENT_DATA="client-data:3000"
+            - ITEM_DATA="item-data:3000"
     pact-broker:
         image: pactfoundation/pact-broker
         container_name: pact-broker

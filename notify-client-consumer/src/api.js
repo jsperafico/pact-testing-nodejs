@@ -1,15 +1,16 @@
 const PORT = 3000;
 
 const express = require('express');
-const Notification = require('./notification/provider')
-
 const app = express();
+const { version } = require('../package.json');
+
+app.use('/api', [express.json()]);
+
 app.get('/', (req, res) => {
     res.send('<h1> Home </h1>');
 });
 
-const notificationApi = new Notification(app);
-notificationApi.setup();
+app.use(`/api/v${version}/notifications`, require('./notification/endpoint'));
 
 app.all('*', (req, res) => {
     res.send('<h1> Not found </h1>');
