@@ -12,7 +12,7 @@ const server = app.listen(`${PORT}`);
 const { load, clear, data } = require('../src/data');
 
 describe('API - Contract Testing', () => {
-    it(`validates the expectations for versions of consumers`, () => {
+    it(`validates the expectations for consumers versions`, () => {
         let token = "Bearer INVALID TOKEN";
         let opts = {
             provider: "app-client-data",
