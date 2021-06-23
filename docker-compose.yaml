@@ -32,15 +32,15 @@ services:
             - /usr/app/node_modules
         environment: 
             - CLIENT_DATA="client-data:3000"
-    costumer-purchase:
+    customer-purchase:
         image: node:14-alpine
-        container_name: costumer-purchase
+        container_name: customer-purchase
         working_dir: /usr/app
         command: /bin/sh -c "npm install && npm run start"
         ports:
             - 3003:3000
         volumes: 
-            - ./costumer-purchase-consumer:/usr/app
+            - ./customer-purchase-consumer:/usr/app
             - /usr/app/node_modules
         environment: 
             - CLIENT_DATA="client-data:3000"

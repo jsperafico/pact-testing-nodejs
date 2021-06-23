@@ -1,0 +1,68 @@
+{
+  "consumer": {
+    "name": "app-customer-purchase"
+  },
+  "provider": {
+    "name": "app-item-data"
+  },
+  "interactions": [
+    {
+      "description": "a request to get an item",
+      "providerState": "an item is found using existent label",
+      "request": {
+        "method": "GET",
+        "path": "/api/v828d0881500b5f462f3baad14960814d/items/water/data",
+        "matchingRules": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/api\\/v828d0881500b5f462f3baad14960814d\\/items\\/[%20\\w\\. ]+\\/data"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": 1,
+          "label": "Chocolate bar",
+          "price": 10
+        },
+        "matchingRules": {
+          "$.headers.content-type": {
+            "match": "regex",
+            "regex": "application\\/json;?.*"
+          },
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request to get an item",
+      "providerState": "an item isn't found using unexistent label",
+      "request": {
+        "method": "GET",
+        "path": "/api/v828d0881500b5f462f3baad14960814d/items/hello/data",
+        "matchingRules": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/api\\/v828d0881500b5f462f3baad14960814d\\/items\\/[%20\\w\\. ]+\\/data"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
